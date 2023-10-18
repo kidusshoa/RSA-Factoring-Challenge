@@ -1,0 +1,36 @@
+#!/usr/bin/python3
+# library to get arguments
+
+import sys
+import math
+
+def is_prime(num):
+    if num < 2:
+        return False
+    for i in range(2, int(math.sqrt(num)) + 1):
+        if num % i == 0:
+            return False
+    return True
+
+def factorize(num):
+    for i in range(2, num//2 + 1):
+        if num % i == 0 and is_prime(i) and is_prime(num // i):
+            print(f"{num}={i}*{num//i}")
+            return
+
+if len(sys.argv) != 2:
+    print(f"Usage: {sys.argv[0]} <file>")
+    sys.exit(1)
+
+filename = sys.argv[1]
+
+try:
+    with open(filename, "r") as file:
+        num = int(file.readline().strip())
+        factorize(num)
+except IOError:
+    print("Error opening file")
+    sys.exit(1)
+ 
+#autostart
+
